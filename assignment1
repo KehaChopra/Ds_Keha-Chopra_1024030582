@@ -1,0 +1,244 @@
+#include <stdio.h>
+
+ Q1: Menu driven program for Array operations 
+void menuDrivenArray() {
+    int arr[100], n = 0, choice, pos, val, i, search, found;
+
+    while (1) {
+        printf("\n---- MENU ----\n");
+        printf("1. CREATE\n");
+        printf("2. DISPLAY\n");
+        printf("3. INSERT\n");
+        printf("4. DELETE\n");
+        printf("5. LINEAR SEARCH\n");
+        printf("6. EXIT\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: // CREATE
+                printf("Enter number of elements: ");
+                scanf("%d", &n);
+                printf("Enter elements: ");
+                for (i = 0; i < n; i++) {
+                    scanf("%d", &arr[i]);
+                }
+                break;
+
+            case 2: // DISPLAY
+                if (n == 0) {
+                    printf("Array is empty.\n");
+                } else {
+                    printf("Array elements: ");
+                    for (i = 0; i < n; i++) {
+                        printf("%d ", arr[i]);
+                    }
+                    printf("\n");
+                }
+                break;
+
+            case 3: // INSERT
+                if (n == 100) {
+                    printf("Array is full.\n");
+                    break;
+                }
+                printf("Enter position (0-%d): ", n);
+                scanf("%d", &pos);
+                printf("Enter value: ");
+                scanf("%d", &val);
+                for (i = n; i > pos; i--) {
+                    arr[i] = arr[i - 1];
+                }
+                arr[pos] = val;
+                n++;
+                break;
+
+            case 4: // DELETE
+                if (n == 0) {
+                    printf("Array is empty.\n");
+                    break;
+                }
+                printf("Enter position (0-%d): ", n - 1);
+                scanf("%d", &pos);
+                if (pos < 0 || pos >= n) {
+                    printf("Invalid position.\n");
+                    break;
+                }
+                for (i = pos; i < n - 1; i++) {
+                    arr[i] = arr[i + 1];
+                }
+                n--;
+                break;
+
+            case 5: // LINEAR SEARCH
+                if (n == 0) {
+                    printf("Array is empty.\n");
+                    break;
+                }
+                printf("Enter value to search: ");
+                scanf("%d", &search);
+                found = 0;
+                for (i = 0; i < n; i++) {
+                    if (arr[i] == search) {
+                        printf("Element found at position %d\n", i);
+                        found = 1;
+                        break;
+                    }
+                }
+                if (!found) {
+                    printf("Element not found.\n");
+                }
+                break;
+
+            case 6: // EXIT
+                return;
+
+            default:
+                printf("Invalid choice.\n");
+        }
+    }
+}
+
+Q2: Remove duplicate elements from array 
+
+void removeDuplicates() {
+    int arr[100], n, i, j, k;
+
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    printf("Enter elements: ");
+    for (i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    for (i = 0; i < n; i++) {
+        for (j = i + 1; j < n; j++) {
+            if (arr[i] == arr[j]) {
+                for (k = j; k < n - 1; k++) {
+                    arr[k] = arr[k + 1];
+                }
+                n--;
+                j--; 
+            }
+        }
+    }
+
+    printf("Array after removing duplicates: ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+void reverseArray() {
+    int n, i;
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+    int arr[n];
+    printf("Enter elements: ");
+    for (i = 0; i < n; i++)
+        scanf("%d", &arr[i]);
+    
+    printf("Reversed array: ");
+    for (i = n - 1; i >= 0; i--)
+        printf("%d ", arr[i]);
+    printf("\n");
+}
+
+ Q4(b) Matrix Multiplication
+void matrixMultiplication() {
+    int r1, c1, r2, c2, i, j, k;
+    printf("Enter rows and columns of first matrix: ");
+    scanf("%d%d", &r1, &c1);
+    printf("Enter rows and columns of second matrix: ");
+    scanf("%d%d", &r2, &c2);
+
+    if (c1 != r2) {
+        printf("Matrix multiplication not possible!\n");
+        return;
+    }
+
+    int a[r1][c1], b[r2][c2], result[r1][c2];
+
+    printf("Enter first matrix:\n");
+    for (i = 0; i < r1; i++)
+        for (j = 0; j < c1; j++)
+            scanf("%d", &a[i][j]);
+
+    printf("Enter second matrix:\n");
+    for (i = 0; i < r2; i++)
+        for (j = 0; j < c2; j++)
+            scanf("%d", &b[i][j]);
+
+    // Multiplication
+    for (i = 0; i < r1; i++) {
+        for (j = 0; j < c2; j++) {
+            result[i][j] = 0;
+            for (k = 0; k < c1; k++)
+                result[i][j] += a[i][k] * b[k][j];
+        }
+    }
+
+    printf("Resultant matrix:\n");
+    for (i = 0; i < r1; i++) {
+        for (j = 0; j < c2; j++)
+            printf("%d ", result[i][j]);
+        printf("\n");
+    }
+}
+
+ Q4(c) Transpose of a Matrix 
+void transposeMatrix() {
+    int r, c, i, j;
+    printf("Enter rows and columns of matrix: ");
+    scanf("%d%d", &r, &c);
+    int a[r][c], t[c][r];
+
+    printf("Enter matrix:\n");
+    for (i = 0; i < r; i++)
+        for (j = 0; j < c; j++)
+            scanf("%d", &a[i][j]);
+
+    for (i = 0; i < r; i++)
+        for (j = 0; j < c; j++)
+            t[j][i] = a[i][j];
+
+    printf("Transpose:\n");
+    for (i = 0; i < c; i++) {
+        for (j = 0; j < r; j++)
+            printf("%d ", t[i][j]);
+        printf("\n");
+    }
+}
+
+ Q5: Sum of every row and column
+void sumRowsColumns() {
+    int r, c, i, j;
+    printf("Enter rows and columns of matrix: ");
+    scanf("%d%d", &r, &c);
+    int a[r][c];
+
+    printf("Enter matrix:\n");
+    for (i = 0; i < r; i++)
+        for (j = 0; j < c; j++)
+            scanf("%d", &a[i][j]);
+
+    printf("Sum of each row:\n");
+    for (i = 0; i < r; i++) {
+        int sum = 0;
+        for (j = 0; j < c; j++)
+            sum += a[i][j];
+        printf("Row %d = %d\n", i + 1, sum);
+    }
+
+    printf("Sum of each column:\n");
+    for (j = 0; j < c; j++) {
+        int sum = 0;
+        for (i = 0; i < r; i++)
+            sum += a[i][j];
+        printf("Column %d = %d\n", j + 1, sum);
+    }
+}
+
+
+
