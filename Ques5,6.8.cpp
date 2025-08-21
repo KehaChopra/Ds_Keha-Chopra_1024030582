@@ -30,7 +30,6 @@ int main() {
 
     return 0;
 }
-//Tri-Diagonal Matrix
 #include <iostream>
 using namespace std;
 
@@ -39,87 +38,18 @@ int main() {
     cout << "Enter size of matrix: ";
     cin >> n;
 
-    int lower[100], diag[100], upper[100];
-
-    cout << "Enter " << n-1 << " lower diagonal elements:\n";
-    for (int i = 0; i < n-1; i++) cin >> lower[i];
-
-    cout << "Enter " << n << " diagonal elements:\n";
-    for (int i = 0; i < n; i++) cin >> diag[i];
-
-    cout << "Enter " << n-1 << " upper diagonal elements:\n";
-    for (int i = 0; i < n-1; i++) cin >> upper[i];
+    int arr[100]; 
+    cout << "Enter elements:\n";
+    for (int i = 0; i < 3*n - 2; i++) {
+        cin >> arr[i];
+    }
 
     cout << "\nTri-diagonal Matrix:\n";
+    int k = 0;  // index for arr[]
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            if (i == j) cout << diag[i] << " ";
-            else if (i == j+1) cout << lower[j] << " ";
-            else if (i+1 == j) cout << upper[i] << " ";
-            else cout << "0 ";
-        }
-        cout << endl;
-    }
-    return 0;
-}
-//Lower Triangular Matrix
-#include <iostream>
-using namespace std;
-
-int main() {
-    int n;
-    cout << "Enter size of matrix: ";
-    cin >> n;
-
-    int A[100]; 
-    int k = 0;
-
-    cout << "Enter " << n*(n+1)/2 << " elements (row-wise):\n";
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j <= i; j++) {
-            cin >> A[k++];
-        }
-    }
-
-    cout << "\nLower Triangular Matrix:\n";
-    k = 0;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            if (i >= j) cout << A[i*(i+1)/2 + j] << " ";
-            else cout << "0 ";
-        }
-        cout << endl;
-    }
-
-    return 0;
-}
-//  Upper Traingular
-#include <iostream>
-using namespace std;
-
-int main() {
-    int n;
-    cout << "Enter size of matrix: ";
-    cin >> n;
-
-    int A[100];  // store only upper triangle
-    int k = 0;
-
-    cout << "Enter " << n*(n+1)/2 << " elements row-wise upper triangle\n";
-    for (int i = 0; i < n; i++) {
-        for (int j = i; j < n; j++) {
-            cin >> A[k++];
-        }
-    }
-
-    cout << "Upper Triangular Matrix:";
-    k = 0;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            if (i <= j) {
-               
-                int index = (i * n - (i*(i-1))/2) + (j-i);
-                cout << A[index] << " ";
+            if (i == j || i-j == 1 || j-i == 1) {
+                cout << arr[k++] ; 
             } else {
                 cout << "0 ";
             }
@@ -129,6 +59,73 @@ int main() {
 
     return 0;
 }
+
+//Lower Triangular Matrix
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cout << "Enter size of matrix: ";
+    cin >> n;
+
+    int total = n * (n + 1) / 2; 
+    int arr[100];  
+
+    cout << "Enter " << total << " elements:\n";
+    for (int i = 0; i < total; i++) {
+        cin >> arr[i];
+    }
+
+    cout << "\nLower Triangular Matrix:\n";
+    int k = 0;  // index for arr[]
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (j <= i) {   
+                cout << arr[k++] << " ";
+            } else {
+                cout << "0 ";
+            }
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+
+//  Upper Traingular
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cout << "Enter size of matrix: ";
+    cin >> n;
+
+    int total = n * (n + 1) / 2;  
+    int arr[100];  
+
+    cout << "Enter elements";
+    for (int i = 0; i < total; i++) {
+        cin >> arr[i];
+    }
+
+ 
+    int k = 0; 
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (j >= i) {   
+                cout << arr[k++] << " ";
+            } else {
+                cout << "0 ";
+            }
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+
 //Symmetric
 #include <iostream>
 using namespace std;
@@ -138,27 +135,41 @@ int main() {
     cout << "Enter size of matrix: ";
     cin >> n;
 
-    int A[100]; 
-    int k = 0;
+    int arr[100];  
+    cout << "Enter elements ";
+    for (int i = 0; i < n*(n+1)/2; i++) {
+        cin >> arr[i];
+    }
 
-    cout << "Enter " << n*(n+1)/2 << " elements lower triangle row-wise:";
+    int k = 0;
+    int mat[20][20]; 
+
+   
     for (int i = 0; i < n; i++) {
-        for (int j = 0; j <= i; j++) {
-            cin >> A[k++];
+        for (int j = i; j < n; j++) {
+            mat[i][j] = arr[k++];
         }
     }
 
-    cout << "\nSymmetric Matrix:\n";
+    
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < i; j++) {
+            mat[i][j] = mat[j][i];
+        }
+    }
+
+ 
+ 
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            if (i >= j) cout << A[i*(i+1)/2 + j] << " ";
-            else cout << A[j*(j+1)/2 + i] << " ";
+            cout << mat[i][j] << " ";
         }
         cout << endl;
     }
 
     return 0;
 }
+
 //Ques6
 
 //Transpose
